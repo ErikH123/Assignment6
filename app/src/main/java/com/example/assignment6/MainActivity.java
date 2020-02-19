@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
         adapteri = new Adapteri(this, R.layout.custom_layout, lista);
         listView.setAdapter(adapteri);
 
-         final Tietokanta tietokanta = Room.databaseBuilder(
+        final Tietokanta tietokanta = Room.databaseBuilder(
                 getApplicationContext(),
                 Tietokanta.class,
                 Tietokanta.NIMI
         ).allowMainThreadQueries()
-                 .build();
+                .build();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 aika = Calendar.getInstance().getTime();
                 int iend = aika.toString().indexOf("G");
-                if(!editText.getText().toString().isEmpty()) {
-                    tietokanta.myDao().delete();
+                if (!editText.getText().toString().isEmpty()) {
+                    lista.clear();
                     tietokanta.myDao().insert(new Data(editText.getText().toString(), aika.toString().substring(0, iend)));
                     editText.setText("");
                     lista.addAll(tietokanta.myDao().getAll());
